@@ -39,23 +39,23 @@ export default class Search extends React.Component {
 
     const { cryptos, page } = this.state
 
-    // list is declared as an array of 40 cryptocurrencies
-    // the page the user is on will determine where the list will be sliced out of the total array of cryptocurreny tickers from
+    // List is declared as an array of 40 cryptocurrencies
+    // The page the user is on will determine where the list will be sliced out of the total array of cryptocurreny tickers from
     // eg. page 0 will slice at (0, 40), page 1 at (40, 80), etc.
     const list = cryptos.slice(page * 40, (page + 1) * 40)
 
-    // when the list of 40 cryptocurrencies has been sliced, get the data for each coin to be displayed
+    // When the list of 40 cryptocurrencies has been sliced, get the data for each coin to be displayed
     this.props.dispatch(getCoinlistData(list, this.props.user.currency)).then(response => {
 
       let results = this.state.results
 
-      // for each cryptocurrency queried, push that information into the results
+      // For each cryptocurrency queried, push that information into the results
       for (let key in response.value) {
         results.push({ [key]: response.value[key] })
       }
 
-      // set the state of results to the previous array plus the new 40 cryptocurrencies
-      // re-attach the scroll event listener for the search container
+      // Set the state of results to the previous array plus the new 40 cryptocurrencies
+      // Re-attach the scroll event listener for the search container
       this.setState({
         results,
         page: page + 1
@@ -70,18 +70,22 @@ export default class Search extends React.Component {
   pageLoader(event) {
     const { scrollHeight, scrollTop, clientHeight } = event.target
 
-    // check if the user has scrolled to the bottom of the search container
-    // if they have, call getCoins to load the next 40 results
+    // Check if the user has scrolled to the bottom of the search container
+    // If they have, call getCoins to load the next 40 results
     if (scrollHeight - scrollTop === clientHeight) {
       this.getCoins()
     }
   }
 
+  // to be called in the render
   tiles = () => {
 
+    // Create an empty array to hold all of the search result items to append to the search module
     let tiles = []
     const list = this.state.results
 
+    // Loop through the search results data, push a CurrencyTile into the empty array per search result item
+    // Pass in the necessary data to display as props on each CurrencyTile
     for (let i = 0; i < list.length; i++) {
       const ticker = Object.keys(list[i])[0]
       tiles.push(
@@ -92,6 +96,8 @@ export default class Search extends React.Component {
           price={list[i][ticker][this.props.user.currency]}
         />)
     }
+
+    // Return the populated array of CurrencyTiles
     return tiles
 
   }
@@ -100,10 +106,10 @@ export default class Search extends React.Component {
 
     const dbRef = firebase.database().ref(`users/${this.props.user.id}/currency`)
 
-    // check for what the user has set as their native currency, then:
+    // Check for what the user has set as their native currency, then:
     dbRef.on('value', () => {
 
-      // reset the state in case there are too many results for the API to query
+      // Reset the state in case there are too many results for the API to query
       this.setState({
         cryptos: [],
         page: 0,
@@ -164,7 +170,7 @@ export default class Search extends React.Component {
             <input
               className="search-module__input"
               type="text"
-              placeholder="Hit enter to search by ticker or coin name"
+              placeholder="Type then hit enter to search by ticker or coin name"
               onKeyDown={this.handleSearchEnter}
             />
             <ul className="search-module__currencies-list">

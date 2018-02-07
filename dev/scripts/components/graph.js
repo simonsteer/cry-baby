@@ -41,7 +41,9 @@ export default class Graph extends React.Component {
             ticker,
             currency,
             period,
-            marketCap: response[ticker][currency].MKTCAP
+            marketCap: response[ticker][currency].MKTCAP,
+            supply: response[ticker][currency].SUPPLY,
+            volume24h: response[ticker][currency].VOLUME24HOUR,
           }
         }))
       })
@@ -57,7 +59,7 @@ export default class Graph extends React.Component {
       const watchlist = this.props.user.watchlist
       
       if (watchlist === undefined || watchlist === null) {
-        this.getCryptoHistory('year', 'BTC', currency)
+        this.getCryptoHistory('6 months', 'BTC', currency)
         return
       }
       this.getCryptoHistory(period, ticker, currency)

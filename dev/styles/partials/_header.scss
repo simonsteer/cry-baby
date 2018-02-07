@@ -19,12 +19,17 @@ header {
   text-align: left;
 }
 
-.header__market-cap {
+.header__marquee {
   display: flex;
+  font-size: 0.8rem;
   align-items: center;
 }
 
 .header__settings-button {
   @include button;
   width: 6.5rem;
+  &.active-button {
+    background: $color--type;
+    color: $color--background;
+  }
 }

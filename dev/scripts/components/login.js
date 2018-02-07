@@ -95,9 +95,11 @@ export default class Login extends React.Component {
               this.props.dispatch(getUser({
                 lastQueried: {
                   ticker,
-                  period: 'year',
+                  period: '6 months',
                   currency,
-                  marketCap: response[ticker][currency].MKTCAP
+                  marketCap: response[ticker][currency].MKTCAP,
+                  supply: response[ticker][currency].SUPPLY,
+                  volume24h: response[ticker][currency].VOLUME24HOUR,
                 },
                 id: user.user.uid,
                 watchlist,

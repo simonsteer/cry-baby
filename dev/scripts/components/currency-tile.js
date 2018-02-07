@@ -9,6 +9,7 @@ import { connect } from 'react-redux'
 import { getCryptoHistory } from '../actions/get-crypto-history'
 import { getUser } from '../actions/get-user'
 
+import accounting from 'accounting'
 const cc = require('cryptocompare')
 
 @connect(store => {
@@ -29,14 +30,16 @@ export default class CurrencyTile extends React.Component {
         const { ticker } = this.props
         const { currency } = this.props.user
 
-        console.log(response, ticker, currency)
+        console.log(response[ticker][currency])
         
         this.props.dispatch(getUser({
           lastQueried: {
             ticker,
             period: this.props.user.lastQueried.period,
             currency,
-            marketCap: response[ticker][currency].MKTCAP
+            marketCap: response[ticker][currency].MKTCAP,
+            supply: response[ticker][currency].SUPPLY,
+            volume24h: response[ticker][currency].VOLUME24HOUR,
           }
         }))
       })
@@ -44,6 +47,7 @@ export default class CurrencyTile extends React.Component {
   }
   
   render() {
+    const { price, ticker, name, id, parent } = this.props
     return (
       <li
         className="currency-tile"
@@ -57,13 +61,13 @@ export default class CurrencyTile extends React.Component {
           <span className="currency-tile__span">
             {this.props.name}
           </span>
-            <span className="currency-tile__span">{`${this.props.price} ${this.props.user.currency}`}</span>
+            <span className="currency-tile__span">{accounting.formatMoney(price, { precision: 5 })}</span>
         </div>
       </div>
-        <Route path="/search" render={props => <AddToListButton {...props} ticker={this.props.ticker} name={this.props.name} />} />
-        {this.props.parent === 'CurrenciesTracked'
+        <Route path="/search" render={props => <AddToListButton {...props} ticker={ticker} name={name} />} />
+        {parent === 'CurrenciesTracked'
           ?
-          <RemoveFromListButton id={this.props.id} />
+          <RemoveFromListButton id={id} />
           :
           null
         }

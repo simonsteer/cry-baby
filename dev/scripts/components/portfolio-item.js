@@ -1,6 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
+import accounting from 'accounting'
+
 @connect(
   (store => {
     return {
@@ -56,11 +58,11 @@ export default class PortfolioItem extends React.Component {
   
   render() {
 
-    const total = (Number(this.state.value) * this.props.conversion).toFixed(2)
+    const total = (Number(this.state.value) * this.props.conversion)
 
     return (
       <div className="portfolio-item">
-        <span>{this.props.user.currency} {total}</span>
+        <span>${accounting.formatNumber(total)}</span>
         <input
           type="text"
           id={this.props.id}

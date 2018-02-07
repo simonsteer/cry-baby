@@ -13,7 +13,7 @@ const AddMoreButton = () => {
 
 const CloseSearchButton = () => {
   return (
-    <Link to="/">
+    <Link to="/" className="active-button">
       Close
     </Link>
   )

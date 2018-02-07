@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom'
 import PortfolioItem from './portfolio-item'
 
 import { connect } from 'react-redux'
+
+import accounting from 'accounting'
 const cc = require('cryptocompare')
 
 @connect(
@@ -84,13 +86,13 @@ export default class Portfolio extends React.Component {
     return (
       <div className="portfolio" style={{ marginRight: `-${this.props.scrollbar.width}px` }}>
         <h3>Total Portfolio Value</h3>
-        <h2>{this.props.user.currency} {this.state.portfolioTotal.toFixed(2)}</h2>
+        <h2>{accounting.formatMoney(this.state.portfolioTotal)}</h2>
         <div className="portfolio-feed">
           {this.state.items.length > 0
           ?
             this.state.items.map(item => item)
           :
-            <p className="portfolio__empty-message">You don't have any currencies in your watchlist!<br />
+            <p className="portfolio__empty-message">There aren't any currencies in your portfolio/watchlist :(<br />
             <Link to="/search">Add some from the search page</Link>.</p>
           }
         </div>

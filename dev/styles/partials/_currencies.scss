@@ -10,8 +10,10 @@
       display: block;
     }
   }
-  div {
-    display: flex;
+  &>div {
+    width: 13rem;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
   }
 }
 
@@ -22,7 +24,6 @@
 .currency-tile--currency {
   font-size: 2rem;
   margin: 0;
-  padding-right: 2rem;
 }
 
 .currency-tile--currency-info {
@@ -51,6 +52,10 @@
     margin: 5rem auto;
     align-self: center;
     padding-top: 0;
+    &.active-button {
+      background: $color--type;
+      color: $color--background;
+    }
   }
 }
 
