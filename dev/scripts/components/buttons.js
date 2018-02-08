@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 
 import { connect } from 'react-redux'
 
+import warning from '../actions/warn-user'
+
 const AddMoreButton = () => {
   return (
     <Link to="/search">
@@ -60,17 +62,17 @@ class RemoveFromListButton extends React.Component {
 
   constructor() {
     super();
-    this.removeFromWatchList = this.removeFromWatchList.bind(this)
+    this.warnUser = this.warnUser.bind(this)
   }
 
-  removeFromWatchList() {
-    const dbRef = firebase.database().ref(`users/${this.props.user.id}/watchlist`)
-    dbRef.child(this.props.id).remove()
+  warnUser() {
+    const { currency, id, dispatch } = this.props
+    dispatch(warning(true, currency, id))
   }
 
   render() {
     return (
-      <button className="currencies-tracked__remove-button" onClick={this.removeFromWatchList}>
+      <button className="currencies-tracked__remove-button" onClick={this.warnUser}>
         –
       </button>
     )

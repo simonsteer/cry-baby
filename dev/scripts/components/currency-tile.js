@@ -3,6 +3,7 @@ import React from 'react'
 import { Route } from 'react-router-dom'
 
 import { AddToListButton, RemoveFromListButton } from './buttons'
+import Warning from './warning'
 
 import { connect } from 'react-redux'
 
@@ -15,7 +16,8 @@ const cc = require('cryptocompare')
 @connect(store => {
   return {
     history: store.history,
-    user: store.user
+    user: store.user,
+    warning: store.warning
   }
 })
 export default class CurrencyTile extends React.Component {
@@ -67,7 +69,7 @@ export default class CurrencyTile extends React.Component {
         <Route path="/search" render={props => <AddToListButton {...props} ticker={ticker} name={name} />} />
         {parent === 'CurrenciesTracked'
           ?
-          <RemoveFromListButton id={id} />
+          <RemoveFromListButton id={id} currency={ticker} />
           :
           null
         }

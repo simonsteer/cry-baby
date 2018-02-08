@@ -1,0 +1,28 @@
+.warning {
+  @include flex-center;
+  flex-direction: column;
+  position: fixed;
+  z-index: 99;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba($color--background, 0.9);
+  color: $color--type;
+  text-align: center;
+  p {
+    width: 50%;
+    min-width: 300px;
+    font-size: 1.6rem;
+  }
+  div {
+    display: flex;
+  }
+  button {
+    @include button;
+    width: 6rem;
+    &:first-of-type {
+      margin-right: 1rem;
+    }
+  }
+}

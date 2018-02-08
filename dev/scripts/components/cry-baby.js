@@ -6,6 +6,8 @@ import Login from './login'
 import Header from './header'
 import CurrenciesTracked from './currencies-tracked'
 import Info from './info'
+import Warning from './warning'
+
 import getScrollbarWidth from '../actions/get-scrollbar-width';
 
 global.fetch = require('node-fetch')
@@ -16,7 +18,8 @@ global.fetch = require('node-fetch')
       user: store.user,
       history: store.history,
       coins: store.coinlist,
-      scrollbar: store.scrollbar
+      scrollbar: store.scrollbar,
+      warning: store.warning
     }
   })
 )
@@ -29,16 +32,19 @@ export default class CryBaby extends React.Component {
   render() {
     return (
       <Router>
-        {this.props.user.id
-        ?
-        <div className="layout">
-          <Header />
-          <CurrenciesTracked />
-          <Info />
+        <div>
+          {this.props.warning.show ? <Warning currency={this.props.warning.currency} id={this.props.warning.id} /> : null}
+          {this.props.user.id
+            ?
+            <div className="layout">
+              <Header />
+              <CurrenciesTracked />
+              <Info />
+            </div>
+            :
+            <Login />
+          }
         </div>
-        :
-        <Login />
-        }
       </Router>
     )
   }

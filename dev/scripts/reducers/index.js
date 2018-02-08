@@ -6,6 +6,7 @@ import coinlist from './coin-reducer'
 import coinlistdata from './coin-reducer'
 import news from './news-reducer'
 import scrollbar from './scrollbar-width-reducer'
+import warning from './warning-reducer'
 
 export default combineReducers({
   user,
@@ -13,5 +14,6 @@ export default combineReducers({
   coinlist,
   coinlistdata,
   news,
-  scrollbar
+  scrollbar,
+  warning
 })
