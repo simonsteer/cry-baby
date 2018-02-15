@@ -25,11 +25,26 @@ export default class CurrenciesTracked extends React.Component {
   constructor() {
     super()
     this.state = {
-      tiles: []
+      tiles: [],
+      route: false
     }
+
+    this.checkProps  = this.checkProps.bind(this)
   }
 
+  checkProps (props) {
+    console.log(props, 'currency props')
+    // this.setState({ route: props.route })
+  }
+
+  componentWillReceiveProps (newProps) {
+    this.checkProps(newProps)
+  }
+
+
   componentDidMount() {
+    this.checkProps(this.props)
+
 
     const dbRef = firebase.database().ref(`users/${this.props.user.id}`)
     dbRef.on('value', (snapshot) => {
@@ -83,7 +98,7 @@ export default class CurrenciesTracked extends React.Component {
           return tile
         })}
         <li>
-          <Route path="/search" component={CloseSearchButton} />
+          <Route exact path="/search" component={CloseSearchButton} />
           <Route exact path="/" component={AddMoreButton} />
         </li>
       </ul>

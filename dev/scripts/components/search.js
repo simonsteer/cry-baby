@@ -61,7 +61,6 @@ export default class Search extends React.Component {
         page: page + 1
       }, () => {
         search.addEventListener('scroll', this.pageLoader)
-        
       })
 
     })
@@ -155,7 +154,7 @@ export default class Search extends React.Component {
       cryptos,
       page: 0,
       results: []
-    }, () => this.getCoins())
+    }, this.getCoins())
 
   }
 

@@ -18,14 +18,14 @@ export default class Info extends React.Component {
   }
 
   checkIfMobileView() {
-    if (window.innerWidth <= 650 && !this.state.isMobile) {
+    if (window.innerWidth <= 750 && !this.state.isMobile) {
       this.setState({
         isMobile: true
       })
-    } else if (window.innerWidth > 650 && this.state.isMobile) {
+    } else if (window.innerWidth > 750 && this.state.isMobile) {
       this.setState({
         isMobile: false,
-        panel: this.state.panel === 0 ? 1 : this.state.panel 
+        panel: this.state.panel === 0 ? 1 : this.state.panel
       })
     }
   }
@@ -62,8 +62,8 @@ export default class Info extends React.Component {
         <Route path="/search" component={Search} />
         {path === '/' && !isMobile ? <Graph /> : null}
         {path === '/' && isMobile && panel === 0 ? <Graph /> : null}
-        {path === '/' && panel === 1 ? <Portfolio /> : null }
-        {path === '/' && panel === 2 ? <NewsFeed /> : null }
+        {path === '/' && panel === 1 ? <Portfolio /> : null}
+        {path === '/' && panel === 2 ? <NewsFeed /> : null}
         {path === '/'
           ?
           <ul className="panel-selector">

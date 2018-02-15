@@ -1,10 +1,13 @@
-@media (max-width: 1000px) {
+@media (max-width: 1150px) {
   .layout {
     grid-template-columns: 1.25fr 2fr;
   }
+  .portfolio-item {
+    width: calc(100% / 3);
+  }
 }
 
-@media (max-width: 850px) {
+@media (max-width: 875px) {
   .layout {
     grid-template-columns: 1.5fr 2fr;
   }
@@ -12,7 +15,6 @@
     width: 100%;
   }
   .portfolio-item {
-    width: 50%;
     padding: 0 1rem;
   }
 }
@@ -76,7 +78,7 @@
   }
 
   .portfolio-item {
-    width: calc(100% / 3);
+    width: 50%;
     padding: 0 0.5rem;
   }
 

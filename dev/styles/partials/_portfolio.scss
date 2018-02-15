@@ -21,11 +21,12 @@
 .portfolio-feed {
   display: flex;
   flex-flow: row wrap;
+  justify-content: center;
 }
 
 .portfolio-item {
   text-align: center;
-  width: calc(100% / 3);
+  width: calc(100% / 4);
   padding: 0 1.5rem;
   margin: 2.5rem 0 0 0;
   font-weight: 500;

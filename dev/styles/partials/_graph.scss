@@ -41,8 +41,9 @@
 }
 
 canvas {
-  width: 100%;
+  width: calc(100% - 40px);
   height: 80%;
+  margin: 0 20px;
 }
 
 .graph__time-increment,

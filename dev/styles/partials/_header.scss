@@ -1,6 +1,6 @@
 header {
   position: relative;
-  padding: 0.75rem;
+  padding: 0 0.75rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -23,6 +23,27 @@ header {
   display: flex;
   font-size: 0.8rem;
   align-items: center;
+  animation: 3s infinite marquee linear;
+  perspective: 800px;
+}
+
+@keyframes marquee {
+  0% {
+    // opacity: 0;
+    transform: translateY(3rem);
+  }
+  10% {
+    // opacity: 1;
+    transform: translateY(0);
+  }
+  90% {
+    // opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-3rem);
+    // opacity: 0;
+  }
 }
 
 .header__settings-button {

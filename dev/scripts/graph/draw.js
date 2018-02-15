@@ -20,13 +20,13 @@ const tracker = (event) => {
     offsetEl = document.querySelector('.currencies-tracked'),
 
     plotPoints = allStats.length - 1,
-    increment = canvas.offsetWidth / plotPoints,
+    increment = (canvas.offsetWidth - 40) / plotPoints,
     scale = Math.max(...allStats) / height,
     markers = []
 
   let position
 
-  if (window.innerWidth <= 650) {
+  if (window.innerWidth <= 750) {
     position = event.pageX - canvas.offsetWidth / 2
   } else {
     position = event.pageX - offsetEl.offsetWidth - canvas.offsetWidth / 2
@@ -36,7 +36,7 @@ const tracker = (event) => {
     markers[i] = increment * i
   }
 
-  const p = position + canvas.offsetWidth / 2
+  const p = position + (canvas.offsetWidth / 2) - 20
 
   markers.push(p)
   markers.sort((a, b) => a - b)
@@ -58,7 +58,7 @@ const tracker = (event) => {
     indexValue = allStats[index - 1] / scale,
 
     moveX = {
-      left: `calc(${p}px)`
+      left: `calc(${p}px + 20px)`
     },
     moveY = {
       top: `calc(${(height + canvas.offsetHeight) / 2}px - ${indexValue}px - ${difference * multiplier}px - 0.25rem)`
@@ -149,9 +149,9 @@ export function draw(stats, info, color, currency) {
   canvas.addEventListener('mousemove', tracker, false)
 
   canvas.removeEventListener('mouseenter', visible, false)
-  canvas.removeEventListener('mouseleave', hidden, false)
-
   canvas.addEventListener('mouseenter', visible, false)
+  
+  canvas.removeEventListener('mouseleave', hidden, false)
   canvas.addEventListener('mouseleave', hidden, false)  
 
 }
