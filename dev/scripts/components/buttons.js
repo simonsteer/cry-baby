@@ -4,21 +4,36 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 import warning from '../actions/warn-user'
+import changeRoute from '../actions/change-route'
 
-const AddMoreButton = () => {
-  return (
-    <Link to="/search">
-      Add More
-    </Link>
-  )
+@connect(store => {
+  return {
+    route: store.route
+  }
+})
+class AddMoreButton extends React.Component {
+  render() {
+    return (
+      <Link to="/search" onClick={() => this.props.dispatch(changeRoute('search'))}>
+        Add More
+      </Link>
+    )
+  }
 }
 
-const CloseSearchButton = () => {
-  return (
-    <Link to="/" className="active-button">
-      Close
-    </Link>
-  )
+@connect(store => {
+  return {
+    route: store.route
+  }
+})
+class CloseSearchButton extends React.Component {
+  render() {
+    return (
+      <Link to="/" onClick={() => this.props.dispatch(changeRoute('/'))} className="active-button">
+        Close
+      </Link>
+    )
+  }
 }
 
 @connect(store => {

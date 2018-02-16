@@ -16,7 +16,8 @@ const cc = require('cryptocompare')
       user: store.user,
       history: store.history,
       coins: store.coinlist,
-      scrollbar: store.scrollbar
+      scrollbar: store.scrollbar,
+      route: store.route
     }
   })
 )
@@ -25,26 +26,11 @@ export default class CurrenciesTracked extends React.Component {
   constructor() {
     super()
     this.state = {
-      tiles: [],
-      route: false
+      tiles: []
     }
-
-    this.checkProps  = this.checkProps.bind(this)
   }
-
-  checkProps (props) {
-    console.log(props, 'currency props')
-    // this.setState({ route: props.route })
-  }
-
-  componentWillReceiveProps (newProps) {
-    this.checkProps(newProps)
-  }
-
 
   componentDidMount() {
-    this.checkProps(this.props)
-
 
     const dbRef = firebase.database().ref(`users/${this.props.user.id}`)
     dbRef.on('value', (snapshot) => {
@@ -53,7 +39,7 @@ export default class CurrenciesTracked extends React.Component {
 
       if (watchlist === null || watchlist === undefined) {
         this.props.dispatch(getUser({
-            watchlist
+          watchlist
         }))
         this.setState({ tiles: [] })
         return
@@ -98,8 +84,7 @@ export default class CurrenciesTracked extends React.Component {
           return tile
         })}
         <li>
-          <Route exact path="/search" component={CloseSearchButton} />
-          <Route exact path="/" component={AddMoreButton} />
+            {this.props.route.path === 'search' ? <CloseSearchButton /> : <AddMoreButton />}
         </li>
       </ul>
       </div>

@@ -25,7 +25,7 @@ export default class Info extends React.Component {
     } else if (window.innerWidth > 750 && this.state.isMobile) {
       this.setState({
         isMobile: false,
-        panel: this.state.panel === 0 ? 1 : this.state.panel
+        panel: this.state.panel === 0 ? 2 : this.state.panel
       })
     }
   }
@@ -37,13 +37,13 @@ export default class Info extends React.Component {
   }
 
   componentDidMount() {
-    if (window.innerWidth <= 650) {
+    if (window.innerWidth <= 750) {
       this.setState({
         isMobile: true
       })
     } else {
       this.setState({
-        panel: 1
+        panel: 2
       })
     }
     window.addEventListener('resize', this.checkIfMobileView)
