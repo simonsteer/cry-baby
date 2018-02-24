@@ -17,7 +17,7 @@ export default class Settings extends React.Component {
   constructor() {
     super()
     this.state = {
-      currencies: ['AUD', 'CAD', 'EUR', 'GBP', 'JPY', 'KRW', 'RBM', 'USD'],
+      currencies: ['AUD', 'CAD', 'EUR', 'GBP', 'JPY', 'KRW', 'CNY', 'USD'],
       showCurrencyList: false
     }
     this.logout = this.logout.bind(this)

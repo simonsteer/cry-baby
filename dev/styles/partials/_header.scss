@@ -23,7 +23,7 @@ header {
   display: flex;
   font-size: 0.8rem;
   align-items: center;
-  animation: 3s infinite marquee linear;
+  animation: 5s infinite marquee linear;
   perspective: 800px;
 }
 
@@ -32,11 +32,11 @@ header {
     // opacity: 0;
     transform: translateY(3rem);
   }
-  10% {
+  5% {
     // opacity: 1;
     transform: translateY(0);
   }
-  90% {
+  95% {
     // opacity: 1;
     transform: translateY(0);
   }

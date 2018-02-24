@@ -49,7 +49,7 @@ export default class CurrencyTile extends React.Component {
   }
   
   render() {
-    const { price, ticker, name, id, parent } = this.props
+    const { price, ticker, name, id, parent, user } = this.props
     return (
       <li
         className="currency-tile"
@@ -63,7 +63,16 @@ export default class CurrencyTile extends React.Component {
           <span className="currency-tile__span">
             {this.props.name}
           </span>
-            <span className="currency-tile__span">{accounting.formatMoney(price, { precision: 5 })}</span>
+            <span className="currency-tile__span">
+              {price.toLocaleString(
+                'en-US',
+                {
+                  style: 'currency',
+                  currency: user.currency,
+                  maximumFractionDigits: 6
+                })
+              }
+            </span>
         </div>
       </div>
         <Route path="/search" render={props => <AddToListButton {...props} ticker={ticker} name={name} />} />

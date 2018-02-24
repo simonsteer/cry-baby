@@ -90,8 +90,14 @@ const tracker = (event) => {
   day = day.toString().substr(0, 15)
 
   info.innerHTML =
-  `${day}:
-${value} ${cur}`
+    `${day}: ${value.toLocaleString(
+      'en-US',
+      {
+        style: 'currency',
+        currency: cur,
+        maximumFractionDigits: 6
+      })
+    }`
 
 }
 

@@ -37,7 +37,7 @@ export default class Search extends React.Component {
     const search = document.querySelector('.search-module')
     search.removeEventListener('scroll', this.pageLoader)
 
-    const { cryptos, page } = this.state
+    let { cryptos, page, results } = this.state
 
     // List is declared as an array of 40 cryptocurrencies
     // The page the user is on will determine where the list will be sliced out of the total array of cryptocurreny tickers from
@@ -46,14 +46,12 @@ export default class Search extends React.Component {
 
     // When the list of 40 cryptocurrencies has been sliced, get the data for each coin to be displayed
     this.props.dispatch(getCoinlistData(list, this.props.user.currency)).then(response => {
-
-      let results = this.state.results
-
+      
       // For each cryptocurrency queried, push that information into the results
       for (let key in response.value) {
-        results.push({ [key]: response.value[key] })
+       results.push({ [key]: response.value[key] })
       }
-
+      
       // Set the state of results to the previous array plus the new 40 cryptocurrencies
       // Re-attach the scroll event listener for the search container
       this.setState({
@@ -148,13 +146,15 @@ export default class Search extends React.Component {
       if (string.test(list[tickers[i]].CoinName) || string.test(list[tickers[i]].Name)) {
         cryptos.push(tickers[i])
       }
-    }  
+    }
     
     this.setState({
       cryptos,
       page: 0,
       results: []
-    }, this.getCoins())
+    }, () => {
+      this.getCoins()
+    })
 
   }
 

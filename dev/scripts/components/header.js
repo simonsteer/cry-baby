@@ -106,7 +106,7 @@ export default class Header extends React.Component {
   }
 
   startInterval() {
-    const intervalId = setInterval(this.marqueeTimer, 3000)
+    const intervalId = setInterval(this.marqueeTimer, 5000)
     this.setState({ intervalId })
   }
 
@@ -128,6 +128,7 @@ export default class Header extends React.Component {
               start={this.startInterval}
               end={this.endInterval}
               ticker={ticker}
+              currency={this.props.user.currency}
               marquee={marquee}
               mktCap={marketCap}
               vol24={volume24h}

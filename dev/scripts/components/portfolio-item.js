@@ -22,9 +22,13 @@ export default class PortfolioItem extends React.Component {
   }
 
   handleChange(e) {
-    const value = e.target.value.slice(this.props.ticker.length + 2)
+    let value = e.target.value.slice(this.props.ticker.length + 2)
+    const hasOnePeriod = value.indexOf('.') !== -1 && value.indexOf('.') === value.lastIndexOf('.')
+
     this.setState({
-      value
+      value: hasOnePeriod
+        ? value.replace(/[^\d\.]/, '')
+        : parseFloat(value.replace(/[^\d\.]/, '')) || 0
     })
   }
   
@@ -35,9 +39,9 @@ export default class PortfolioItem extends React.Component {
     }
   }
 
-  handleBlur() {
+  handleBlur(e) {
     const dbRef = firebase.database().ref(`users/${this.props.user.id}/watchlist/${this.props.id}`)
-    dbRef.child('invested').set(this.state.value)
+    dbRef.child('invested').set(Number(this.state.value))
     document.querySelector(`#${this.props.id}`).blur()
   }
 
@@ -62,7 +66,15 @@ export default class PortfolioItem extends React.Component {
 
     return (
       <div className="portfolio-item">
-        <span>${accounting.formatNumber(total)}</span>
+        <span>
+          {total.toLocaleString(
+            'en-US',
+            {
+              style: 'currency',
+              currency: this.props.user.currency,
+              maximumFractionDigits: 6
+            })}
+        </span>
         <input
           type="text"
           id={this.props.id}

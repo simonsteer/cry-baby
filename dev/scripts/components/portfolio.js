@@ -86,7 +86,13 @@ export default class Portfolio extends React.Component {
     return (
       <div className="portfolio" style={{ marginRight: `-${this.props.scrollbar.width}px` }}>
         <h3>Total Portfolio Value</h3>
-        <h2>{accounting.formatMoney(this.state.portfolioTotal)}</h2>
+        <h2>{this.state.portfolioTotal.toLocaleString(
+          'en-US',
+          {
+            style: 'currency',
+            currency: this.props.user.currency,
+            maximumFractionDigits: 6
+          })}</h2>
         <div className="portfolio-feed">
           {this.state.items.length > 0
           ?

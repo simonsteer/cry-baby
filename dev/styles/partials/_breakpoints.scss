@@ -43,7 +43,7 @@
     height: calc(50vh - 3rem);
     min-height: 250px;
     border-right: 0px;
-    border-bottom: 1px solid $color--border1;
+    border-bottom: 1px solid $color--border2;
   }
 
   .currency-info {
@@ -95,10 +95,18 @@
     height: 50vh;
     min-height: 100px;
   }
+
+  .search-module .currency-tile:nth-child(even) {
+    border-left: 0;
+  }
 }
 
 @media (max-width: 500px) {
   .portfolio-item {
     width: 50%;
+  }
+  .login__button {
+    display: block;
+    margin: 1.5rem auto;
   }
 }

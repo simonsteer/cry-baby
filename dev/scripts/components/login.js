@@ -13,7 +13,9 @@ const config = {
 };
 firebase.initializeApp(config);
 
-const provider = new firebase.auth.GoogleAuthProvider();
+const google = new firebase.auth.GoogleAuthProvider();
+const twitter = new firebase.auth.TwitterAuthProvider();
+const facebook = new firebase.auth.FacebookAuthProvider();
 const cc = require('cryptocompare')
 
 @connect(
@@ -29,10 +31,10 @@ export default class Login extends React.Component {
     this.login = this.login.bind(this)
   }
 
-  login() {
+  login(provider) {
     firebase.auth().signInWithPopup(provider)
       .then(user => {
-      
+
         const dbRef = firebase.database().ref(`users`)
 
         dbRef.once('value', (snapshot) => {
@@ -63,8 +65,8 @@ export default class Login extends React.Component {
               })
             fb.child('watchlist').push(
               {
-                name: 'DigitalCash',
-                ticker: 'DASH',
+                name: 'Litecoin',
+                ticker: 'LTC',
                 invested: 0
               })
           }
@@ -116,14 +118,24 @@ export default class Login extends React.Component {
   render() {
     return (
       <section className="login">
-        <h3 className="login__header">Cry-Baby</h3>
-        <p className="login__p">One place to check all your cryptocurrencies</p>
-        <button
-        className="login__button"
-        onClick={this.login}
-        >
-          Login with Google
-        </button>
+        <div>
+          <h3 className="login__header">Cry-Baby</h3>
+          <p className="login__p">One place to check all your cryptocurrencies</p>
+        </div>
+        <div>
+          <p className="login__p">login via</p>
+          <span>
+          <button className="login__button" onClick={() => this.login(google)}>
+            Google
+          </button>
+          <button className="login__button" onClick={() => this.login(facebook)}>
+            Facebook
+          </button>
+          <button className="login__button" onClick={() => this.login(twitter)}>
+            Twitter
+          </button>
+          </span>
+        </div>
       </section>
     )
   }

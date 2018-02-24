@@ -1,6 +1,4 @@
 import React from 'react'
-import accounting from 'accounting'
-
 export default class Marquee extends React.Component {
   componentDidMount() {
     this.props.start()
@@ -11,17 +9,35 @@ export default class Marquee extends React.Component {
   }
 
   render() {
-    const { marquee, ticker, mktCap, vol24, supply } = this.props
+    const { marquee, ticker, mktCap, vol24, supply, currency } = this.props
     return (
       <span className="header__marquee">
         {ticker}
         {
           marquee === 0
-          ? ` Market Cap: ${accounting.formatMoney(mktCap)}`
+          ? ` Market Cap: ${mktCap.toLocaleString(
+                'en-US',
+                {
+                  style: 'currency',
+                  currency,
+                  maximumFractionDigits: 6
+                })}`
           : marquee === 1
-          ? ` Circulating Supply: ${accounting.formatMoney(supply)}`
+          ? ` Circulating Supply: ${supply.toLocaleString(
+                'en-US',
+                {
+                  style: 'currency',
+                  currency,
+                  maximumFractionDigits: 6
+                })}`
           : marquee === 2
-          ? ` 24 Hour Volume: ${accounting.formatMoney(vol24)}`
+          ? ` 24 Hour Volume: ${vol24.toLocaleString(
+                'en-US',
+                {
+                  style: 'currency',
+                  currency,
+                  maximumFractionDigits: 6
+                })}`
           : null
         }
       </span>

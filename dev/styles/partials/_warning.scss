@@ -10,10 +10,12 @@
   background: rgba($color--background, 0.9);
   color: $color--type;
   text-align: center;
+  padding-bottom: 2.35rem;
   p {
     width: 50%;
     min-width: 300px;
     font-size: 1.6rem;
+    margin: 1rem 0;
   }
   div {
     display: flex;

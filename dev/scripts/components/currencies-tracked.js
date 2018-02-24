@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, Route } from 'react-router-dom'
+import { Link, Route, withRouter } from 'react-router-dom'
 
 import Header from './header'
 import CurrencyTile from './currency-tile'
@@ -21,7 +21,7 @@ const cc = require('cryptocompare')
     }
   })
 )
-export default class CurrenciesTracked extends React.Component {
+class CurrenciesTracked extends React.Component {
 
   constructor() {
     super()
@@ -84,7 +84,8 @@ export default class CurrenciesTracked extends React.Component {
           return tile
         })}
         <li>
-            {this.props.route.path === 'search' ? <CloseSearchButton /> : <AddMoreButton />}
+            <Route path="/search" component={CloseSearchButton} />
+            <Route exact path="/" component={AddMoreButton} />
         </li>
       </ul>
       </div>
@@ -92,3 +93,4 @@ export default class CurrenciesTracked extends React.Component {
   }
 }
 
+export default withRouter(CurrenciesTracked)
