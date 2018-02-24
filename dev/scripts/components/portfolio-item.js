@@ -23,7 +23,7 @@ export default class PortfolioItem extends React.Component {
 
   handleChange(e) {
     let value = e.target.value.slice(this.props.ticker.length + 2)
-    const hasOnePeriod = value.indexOf('.') !== -1 && value.indexOf('.') === value.lastIndexOf('.')
+    const hasOnePeriod = value.indexOf('.') === value.lastIndexOf('.')
 
     this.setState({
       value: hasOnePeriod

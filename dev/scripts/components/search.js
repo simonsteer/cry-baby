@@ -20,8 +20,10 @@ export default class Search extends React.Component {
     this.state = {
       cryptos: [],
       page: 0,
-      results: []
+      results: [],
+      value: ''
     }
+    this.handleChange = this.handleChange.bind(this)
     this.getCoins = this.getCoins.bind(this)
     this.tiles = this.tiles.bind(this)
     this.pageLoader = this.pageLoader.bind(this)
@@ -29,6 +31,12 @@ export default class Search extends React.Component {
     this.handleSearchEnter = this.handleSearchEnter.bind(this)
   }
 
+  handleChange(e) {
+    let value = e.target.value
+    this.setState({
+      value
+    })
+  }
 
   getCoins() {
 
@@ -38,6 +46,9 @@ export default class Search extends React.Component {
     search.removeEventListener('scroll', this.pageLoader)
 
     let { cryptos, page, results } = this.state
+    if (page === 0) {
+      results = []
+    }
 
     // List is declared as an array of 40 cryptocurrencies
     // The page the user is on will determine where the list will be sliced out of the total array of cryptocurreny tickers from
@@ -123,15 +134,15 @@ export default class Search extends React.Component {
             this.getCoins()
           })
         })
+
       })
+      
     })
   }
 
   handleSearchEnter(event) {
-    const search = document.querySelector('.search-module__input')
-    if (event.keyCode === 13 && document.activeElement === search) {
-      this.handleSearchInput(search.value)
-      search.value = ''
+    if (event.keyCode === 13) {
+      this.handleSearchInput(this.state.value)
     }
   }
 
@@ -151,10 +162,9 @@ export default class Search extends React.Component {
     this.setState({
       cryptos,
       page: 0,
-      results: []
-    }, () => {
-      this.getCoins()
-    })
+      results: [],
+      value: ''
+    }, () => this.getCoins())
 
   }
 
@@ -171,6 +181,9 @@ export default class Search extends React.Component {
               type="text"
               placeholder="Type then hit enter to search by ticker or coin name"
               onKeyDown={this.handleSearchEnter}
+              onChange={this.handleChange}
+              ref="search"
+              value={this.state.value}
             />
             <ul className="search-module__currencies-list">
               {this.tiles()}

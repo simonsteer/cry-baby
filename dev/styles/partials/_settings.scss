@@ -131,4 +131,13 @@
     font-size: 0.5rem;
     margin-bottom: 0.25rem;
   }
+  a {
+    font-size: 0.8rem;
+    margin-top: 0.75rem;
+    color: $color--type;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }

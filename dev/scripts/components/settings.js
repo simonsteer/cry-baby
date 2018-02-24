@@ -123,6 +123,7 @@ export default class Settings extends React.Component {
             <span>Donate BTC: 3CERXT7P2SfGLnAZQP7Z4rXCzYAfNtRNgd</span>
             <span>Donate ETH: 0x3cdfcb1cfe97b79f1cc6f83789837789c8ccd1b5</span>
             <span>Donate LTC: LcBYSHqDj6XsQgGeEM1fUJfv2CPYgjvtwG</span>
+            <a href="mailto:hello@56.digital">contact</a>
           </li>
         </ul>
       </div>
