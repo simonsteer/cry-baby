@@ -51,18 +51,23 @@ canvas {
   color: rgb(166, 166, 166);
   height: 10%;
   list-style-type: none;
-  display: flex;
-  justify-content: space-between;
-  padding: 0 0.75rem;
+  padding: 0 20px;
   align-items: center;
   font-size: 0.8rem;
- }
+}
 
- .graph__time-options {
-   padding: 0 5rem;
-   li {
-     cursor: pointer;
-    }
+.graph__time-increment li {
+  display: inline-block;
+  margin-right: 0;
+}
+
+.graph__time-options {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 5rem;
+  li {
+    cursor: pointer;
+  }
  }
 
  .time-option__active {

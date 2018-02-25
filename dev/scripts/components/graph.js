@@ -89,37 +89,49 @@ export default class Graph extends React.Component {
       
     }
   }
-  
+
   render() {
 
     const { ticker, currency, period } = this.props.user.lastQueried
 
-    let date = new Date()
-    let n = date.getMonth()
-    let increments = this.state.increments.months
-    let first
-    let second
+    const divisor =
+      period === 'week'
+      ? 7
+      : period === '3 months'
+      ? 3
+      : period === '6 months'
+      ? 6
+      : 12
 
-    switch (period) {
-      case 'week':
-        increments = this.state.increments.days
-        n = date.getDay();
-        first = increments.slice(n, increments.length)
-        second = increments.slice(0, n)
-        increments = first.concat(second)
-        break;
-      case '3 months':
-        increments = increments.slice(9)
-        break;
-      case '6 months':
-        increments = increments.slice(6)
-        break;
-      case 'year':
-        first = increments.slice(n, increments.length)
-        second = increments.slice(0, n)
-        increments = first.concat(second)
-        break;
+    const increments =
+      period === 'week'
+      ? this.state.increments.days
+      : this.state.increments.months
+
+    const today = new Date()
+    let calendar = []
+
+    for (var i = divisor; i > 0; i -= 1) {
+      const d = 
+        period === 'week'
+          ? i - 1 - today.getDay()
+          : new Date(today.getFullYear(), today.getMonth() - i + 1, 1)
+
+      const n = increments[
+        period === 'week'
+          ? d
+          : d.getMonth()
+      ];
+
+      period === 'week'
+        ? calendar.unshift(n)
+        : calendar.push(n)
     }
+
+    console.log(calendar)
+
+    const width = (100 / divisor)
+    const buffer = ((365 / 12) - new Date().getDate()) / divisor
 
     return (
       <div className="graph-container">
@@ -133,8 +145,19 @@ export default class Graph extends React.Component {
                 <h3 className="graph__header">dd/mm/yyyy: $0.00</h3>
               </div>
             </div>
-            <ul className="graph__time-increment">
-              {increments.map(inc => <li key={inc}>{inc}</li>)}
+            <ul className="graph__time-increment" ref="incrementContainer">
+              {calendar.map((inc, i) =>
+                <li
+                  key={inc}
+                  style={{
+                    width:
+                      !i
+                        ? `${width - buffer}%`
+                        : `${width}%`,
+                    marginLeft: !i ? `${buffer}%` : 0
+                  }}>
+                  {inc}
+                </li>)}
             </ul>
             <canvas id="canvas">
             </canvas>

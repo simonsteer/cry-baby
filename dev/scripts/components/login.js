@@ -123,7 +123,7 @@ export default class Login extends React.Component {
           <p className="login__p">One place to check all your cryptocurrencies</p>
         </div>
         <div>
-          <p className="login__p">login via</p>
+          <p className="login__p">Log in via</p>
           <span>
           <button className="login__button" onClick={() => this.login(google)}>
             Google
