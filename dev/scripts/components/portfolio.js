@@ -98,7 +98,7 @@ export default class Portfolio extends React.Component {
           ?
             this.state.items.map(item => item)
           :
-            <p className="portfolio__empty-message">There aren't any currencies in your portfolio/watchlist :(<br />
+            <p className="portfolio__empty-message">There aren't any currencies in your portfolio :(<br />
             <Link to="/search">Add some from the search page</Link>.</p>
           }
         </div>

@@ -80,9 +80,9 @@ class CurrenciesTracked extends React.Component {
     return (
       <div className="currencies-tracked__container">
       <ul className="currencies-tracked" style={{ marginRight: `-${this.props.scrollbar.width}px` }}>
-        {this.state.tiles.map(tile => {
-          return tile
-        })}
+        {this.state.tiles.map(tile => tile)}
+          {this.state.tiles.length === 0 &&
+          <p className="portfolio__empty-message">There aren't any currencies in your watchlist :(</p>}
         <li>
             <Route path="/search" component={CloseSearchButton} />
             <Route exact path="/" component={AddMoreButton} />

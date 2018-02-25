@@ -42,7 +42,7 @@
 
 .currencies-tracked {
   height: calc(100vh - 3rem);
-  min-height: 600px;
+  min-height: 400px;
   overflow-y: scroll;
   a {
     @include button;

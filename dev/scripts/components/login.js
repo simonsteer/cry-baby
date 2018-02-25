@@ -31,8 +31,93 @@ export default class Login extends React.Component {
     this.login = this.login.bind(this)
   }
 
+  componentDidMount() {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        const dbRef = firebase.database().ref(`users`)
+
+        dbRef.once('value', (snapshot) => {
+          // We can use a variable with a boolean value to determine whether the user exists or not. We will start it with a falsey value, then change it to a truthy value if the user does exist.
+          let userExists = false;
+          // This for...in loop runs through the 'users' directory, and checks to see if the UID matches any UIDs that exist in that directory. If it does match, then send the user info to the store
+          for (let u in snapshot.val()) {
+            if (u === user.uid) {
+              userExists = true
+            }
+          }
+          // If the for...in loop could not match the user's email with any emails that already exist in the directory, then the user doesn't exist yet, we will have to create a directory for that user using .set()
+          const fb = firebase.database().ref(`users/${user.uid}`)
+          if (userExists === false) {
+            fb.child('theme').set('black')
+            fb.child('currency').set('USD')
+            fb.child('watchlist').push(
+              {
+                name: 'Bitcoin',
+                ticker: 'BTC',
+                invested: 0
+              })
+            fb.child('watchlist').push(
+              {
+                name: 'Etherium',
+                ticker: 'ETH',
+                invested: 0
+              })
+            fb.child('watchlist').push(
+              {
+                name: 'Litecoin',
+                ticker: 'LTC',
+                invested: 0
+              })
+          }
+          // We then read get the user's information in firebase once
+          // The user is then dispatched to the store
+
+          fb.once('value', u => {
+
+            let watchlist = []
+            for (let key in u.val().watchlist) {
+              watchlist.push(u.val().watchlist[key])
+            }
+
+            let ticker
+            if (watchlist.length > 0) {
+              ticker = watchlist[0].ticker
+            } else {
+              ticker = 'BTC'
+            }
+
+            const currency = u.val().currency
+
+            cc.priceFull(ticker, currency).then(response => {
+
+
+              console.log(response, ticker, currency)
+
+              this.props.dispatch(getUser({
+                lastQueried: {
+                  ticker,
+                  period: '6 months',
+                  currency,
+                  marketCap: response[ticker][currency].MKTCAP,
+                  supply: response[ticker][currency].SUPPLY,
+                  volume24h: response[ticker][currency].VOLUME24HOUR,
+                },
+                id: user.uid,
+                watchlist,
+                currency
+              }))
+            })
+
+          })
+
+        })
+
+      }
+    })
+  }
+
   login(provider) {
-    firebase.auth().signInWithPopup(provider)
+    return firebase.auth().signInWithPopup(provider)
       .then(user => {
 
         const dbRef = firebase.database().ref(`users`)

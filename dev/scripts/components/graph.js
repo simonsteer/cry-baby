@@ -140,6 +140,16 @@ export default class Graph extends React.Component {
           <Loading />
         :
           <section className="graph">
+          <div className="graph__max-min">
+              <div className="graph__max"></div>
+              <div className="graph___min"><span style={{ position: 'relative', top: '0.6rem' }}>&#8601; </span>{(0).toLocaleString(
+                'en-US',
+                {
+                  style: 'currency',
+                  currency,
+                  maximumFractionDigits: 6
+                })}</div>
+          </div>
             <div className="graph__marker">
               <div className="graph__dot">
                 <h3 className="graph__header">dd/mm/yyyy: $0.00</h3>
