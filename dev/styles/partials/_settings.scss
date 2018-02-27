@@ -136,8 +136,6 @@
     margin-top: 0.75rem;
     color: $color--type;
     text-decoration: none;
-    &:hover {
-      text-decoration: underline;
-    }
+    border-bottom: 1px solid $color--type;
   }
 }

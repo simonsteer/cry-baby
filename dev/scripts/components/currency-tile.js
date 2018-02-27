@@ -31,8 +31,6 @@ export default class CurrencyTile extends React.Component {
   
         const { ticker } = this.props
         const { currency } = this.props.user
-
-        console.log(response[ticker][currency])
         
         this.props.dispatch(getUser({
           lastQueried: {
@@ -65,10 +63,14 @@ export default class CurrencyTile extends React.Component {
           </span>
             <span className="currency-tile__span">
               {price.toLocaleString(
-                'en-US',
+                user.currency === 'CNY' ? 'zh-Hans-CN' : 'en-US',
                 {
                   style: 'currency',
-                  currency: user.currency,
+                  currency:
+                    user.currency === 'USD' ||
+                    user.currency === 'CAD' ||
+                    user.currency === 'AUD'
+                    ? 'USD' : user.currency,
                   maximumFractionDigits: 6
                 })
               }

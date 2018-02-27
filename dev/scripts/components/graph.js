@@ -128,7 +128,31 @@ export default class Graph extends React.Component {
         : calendar.push(n)
     }
 
-    console.log(calendar)
+    const data = this.props.history.list.map(date => {
+      return date.close
+    })
+    const max = Math.max(...data)
+
+    let y_axis = []
+    for (let i = 0; i < 5; i++) {
+
+      const value = (max / 4) * i
+
+      let val = (value).toLocaleString(
+        currency === 'CNY' ? 'zh-Hans-CN' : 'en-US',
+        {
+          style: 'currency',
+          currency:
+            currency === 'USD' ||
+            currency === 'CAD' ||
+            currency === 'AUD'
+              ? 'USD'
+              : currency,
+          minimumFractionDigits: 0,
+          maximumFractionDigits: value > 5 ? 0 : 6,
+        })
+      y_axis.unshift(<div className={`graph__${i}`} key={`y-axis_${i}`}>{val}</div>)
+    }
 
     const width = (100 / divisor)
     const buffer = ((365 / 12) - new Date().getDate()) / divisor
@@ -141,14 +165,7 @@ export default class Graph extends React.Component {
         :
           <section className="graph">
           <div className="graph__max-min">
-              <div className="graph__max"></div>
-              <div className="graph___min"><span style={{ position: 'relative', top: '0.6rem' }}>&#8601; </span>{(0).toLocaleString(
-                'en-US',
-                {
-                  style: 'currency',
-                  currency,
-                  maximumFractionDigits: 6
-                })}</div>
+              {y_axis.map(i => i)}
           </div>
             <div className="graph__marker">
               <div className="graph__dot">
@@ -158,7 +175,7 @@ export default class Graph extends React.Component {
             <ul className="graph__time-increment" ref="incrementContainer">
               {calendar.map((inc, i) =>
                 <li
-                  key={inc}
+                  key={inc + i}
                   style={{
                     width:
                       !i

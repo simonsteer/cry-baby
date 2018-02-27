@@ -1,3 +1,13 @@
+@media (min-width: 2000px) {
+  .login img {
+    max-height: 250px;
+    &:nth-of-type(2) {
+      margin-left: 30px;
+      max-width: 300px;
+    }
+  }
+}
+
 @media (max-width: 1150px) {
   .layout {
     grid-template-columns: 1.25fr 2fr;
@@ -21,6 +31,24 @@
 
 @media (max-width: 750px) {
 
+  .login img {
+    max-height: 100px;
+    &:nth-of-type(2) {
+      margin-top: 25px;
+      margin-left: 0;
+      max-width: 125px;
+    }
+  }
+
+  .login div:nth-of-type(1) {
+    flex-direction: column;
+  }
+
+  .login__button {
+    display: block;
+    margin: 1.5rem auto;
+  }
+    
   .layout {
     grid-template-columns: 1fr;
     grid-template-rows: 3rem auto auto;
@@ -104,9 +132,5 @@
 @media (max-width: 500px) {
   .portfolio-item {
     width: 50%;
-  }
-  .login__button {
-    display: block;
-    margin: 1.5rem auto;
   }
 }

@@ -91,7 +91,7 @@ export default class Header extends React.Component {
     const theme = firebase.database().ref(`users/${this.props.user.id}/theme`)
     theme.on('value', snapshot => {
       this.props.dispatch(getUser({ theme: snapshot.val() }))
-      document.querySelector('link').setAttribute('href', `public/styles/style-${snapshot.val()}.css`)
+      document.querySelector('link[rel="stylesheet"]').setAttribute('href', `public/styles/style-${snapshot.val()}.css`)
     })
 
     window.innerWidth >= 500 ? this.setState({ showMarquee: true }) : () => {}

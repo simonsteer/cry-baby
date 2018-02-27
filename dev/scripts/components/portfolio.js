@@ -87,11 +87,11 @@ export default class Portfolio extends React.Component {
       <div className="portfolio" style={{ marginRight: `-${this.props.scrollbar.width}px` }}>
         <h3>Total Portfolio Value</h3>
         <h2>{this.state.portfolioTotal.toLocaleString(
-          'en-US',
+          this.props.user.currency === 'CNY' ? 'zh-Hans-CN' : 'en-US',
           {
             style: 'currency',
-            currency: this.props.user.currency,
-            maximumFractionDigits: 6
+            currency: this.props.user.currency === 'USD' || this.props.user.currency === 'CAD' || this.props.user.currency === 'AUD' ? 'USD' : this.props.user.currency,
+            maximumFractionDigits: 2
           })}</h2>
         <div className="portfolio-feed">
           {this.state.items.length > 0

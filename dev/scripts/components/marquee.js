@@ -16,26 +16,26 @@ export default class Marquee extends React.Component {
         {
           marquee === 0
           ? ` Market Cap: ${mktCap.toLocaleString(
-                'en-US',
+                currency === 'CNY' ? 'zh-Hans-CN' : 'en-US',
                 {
                   style: 'currency',
-                  currency,
+                  currency: currency === 'USD' || currency === 'CAD' || currency === 'AUD' ? 'USD' : currency,
                   maximumFractionDigits: 6
                 })}`
           : marquee === 1
           ? ` Circulating Supply: ${supply.toLocaleString(
-                'en-US',
+                  currency === 'CNY' ? 'zh-Hans-CN' : 'en-US',
                 {
                   style: 'currency',
-                  currency,
+                  currency: currency === 'USD' || currency === 'CAD' || currency === 'AUD' ? 'USD' : currency,
                   maximumFractionDigits: 6
                 })}`
           : marquee === 2
           ? ` 24 Hour Volume: ${vol24.toLocaleString(
-                'en-US',
+                  currency === 'CNY' ? 'zh-Hans-CN' : 'en-US',
                 {
                   style: 'currency',
-                  currency,
+                  currency: currency === 'USD' || currency === 'CAD' || currency === 'AUD' ? 'USD' : currency,
                   maximumFractionDigits: 6
                 })}`
           : null

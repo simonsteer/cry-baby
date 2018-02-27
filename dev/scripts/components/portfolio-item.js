@@ -68,11 +68,11 @@ export default class PortfolioItem extends React.Component {
       <div className="portfolio-item">
         <span>
           {total.toLocaleString(
-            'en-US',
+            this.props.user.currency === 'CNY' ? 'zh-Hans-CN' : 'en-US',
             {
               style: 'currency',
-              currency: this.props.user.currency,
-              maximumFractionDigits: 6
+              currency: this.props.user.currency === 'USD' || this.props.user.currency === 'CAD' || this.props.user.currency === 'AUD' ? 'USD' : this.props.user.currency,
+              maximumFractionDigits: total < 5 ? 6 : 2
             })}
         </span>
         <input

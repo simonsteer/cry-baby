@@ -91,10 +91,10 @@ const tracker = (event) => {
 
   info.innerHTML =
     `${day}: ${value.toLocaleString(
-      'en-US',
+      cur === 'CNY' ? 'zh-Hans-CN' : 'en-US',
       {
         style: 'currency',
-        currency: cur,
+        currency: cur === 'USD' || cur === 'CAD' || cur === 'AUD' ? 'USD' : cur,
         maximumFractionDigits: 6
       })
     }`
@@ -150,15 +150,6 @@ export function draw(stats, info, color, currency) {
   }
 
   allStats = stats
-
-  const maxMarker = document.querySelector('.graph__max')
-  maxMarker.innerHTML = `<span style='position: relative; top: -0.5rem;'>&#8598; </span>` + highest.toLocaleString(
-      'en-US',
-      {
-        style: 'currency',
-        currency,
-        maximumFractionDigits: 6
-      })
 
   canvas.removeEventListener('mousemove', tracker, false)
   canvas.addEventListener('mousemove', tracker, false)

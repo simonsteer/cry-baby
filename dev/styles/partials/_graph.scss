@@ -21,22 +21,11 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  font-size: 0.5rem;
-  padding: 0.85rem 0;
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    height: 1px;
-    width: 100%;
-    background: linear-gradient(to left, transparent, $color--type);
-  }
-  &::before {
-    top: 0;
-  }
-  &::after {
-    bottom: 0;
+  font-size: 0.65rem;
+  color: $color--search;
+  div {
+    padding-top: 0.175rem;
+    border-top: 1px solid rgba($color--search, 0.3);
   }
 }
 
